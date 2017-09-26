@@ -12,7 +12,7 @@ alias 'vbash=vim ~/bash'
 alias 'find.no.git=find . ! \( -ipath "^\.git*" \)'
 alias 't2f=tee /tmp/t2f.txt'
 alias 'gs=git -c color.status=always status | less -R'
-alias 'gd=git diff'
+gd() { git diff --color=always "$@" | less -R; }
 alias 'gl=git log --color=always | less -R'
 alias 'ga=git add'
 alias 'gc=git commit -m'
