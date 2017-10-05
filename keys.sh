@@ -6,6 +6,8 @@ alias 'cd.workspace=cd ~/devtools/workspace'
 alias 'cd.tmp=cd ~/devtools/tmp'
 alias 'cl=clear'
 alias 'vbp=vim ~/.bash_profile'
+alias 'vbpa=vim ~/.bash_profile_after'
+alias 'vteamocil=vim ~/.teamocil'
 alias 'abp=source ~/.bash_profile'
 alias 'v.=vim .'
 alias 'vbash=vim ~/bash'
@@ -19,3 +21,5 @@ alias 'gc=git commit -m'
 alias 'gp=git push'
 gb() { git branch "$@" | less; }
 alias 'hist=history | less'
+alias ps1.long="export "PS1=\$PS1LONG""
+alias ps1.short="export "PS1=\$PS1SHORT""
