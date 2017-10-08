@@ -1,9 +1,5 @@
 
 alias 'cd.=cd ~'
-alias 'cd.docs=cd ~/devtools/docs'
-alias 'cd.devtools=cd ~/devtools'
-alias 'cd.workspace=cd ~/devtools/workspace'
-alias 'cd.tmp=cd ~/devtools/tmp'
 alias 'cl=clear'
 alias 'vbp=vim ~/.bash_profile'
 alias 'vbpa=vim ~/.bash_profile_after'
