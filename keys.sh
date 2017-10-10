@@ -20,3 +20,13 @@ gb() { git branch "$@" | less; }
 alias 'hist=history | less'
 alias ps1.long="export "PS1=\$PS1LONG""
 alias ps1.short="export "PS1=\$PS1SHORT""
+
+alias "t2f=tee $T2F"
+alias "lt2f= less $T2F"
+
+t2f.latest() {
+    i=$(wc -l $T2F | awk '{print $1}')
+    echo 'Press Enter to continue...'; read DUMMY
+    less +$i $T2F
+}
+
