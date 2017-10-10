@@ -7,7 +7,7 @@ alias 'vteamocil=vim ~/.teamocil'
 alias 'abp=source ~/.bash_profile'
 alias 'v.=vim .'
 alias 'vbash=vim ~/bash'
-alias 'find.no.git=find . ! \( -ipath "^\.git*" \)'
+alias 'find.no.git=find . \( -name .git \) -prune -o'
 alias 't2f=tee /tmp/t2f.txt'
 alias 'gs=git -c color.status=always status | less -R'
 gd() { git diff --color=always "$@" | less -R; }
