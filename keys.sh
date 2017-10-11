@@ -31,7 +31,12 @@ t2f.latest() {
 }
 
 git.from.commit() {
-    read -p "Enter the first commit: " commit
+    if [ "$1" == "" ]
+    then
+        read -p "Enter the first commit: " commit
+    else
+        commit=$1
+    fi
 
     # clear /tmp/git.diff file
     # filter commit numers from git log
