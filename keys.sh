@@ -30,3 +30,20 @@ t2f.latest() {
     less +$i $T2F
 }
 
+git.from.commit() {
+    read -p "Enter the first commit: " commit
+
+    # clear /tmp/git.diff file
+    # filter commit numers from git log
+    # use awk to print until it reaches the specific commit number
+    # reverse the order
+    # for each commit number, write `git show` to /tmp/git.diff file
+    # use less to view the result
+    echo '' > /tmp/git.diff | \
+        git log | \
+        sed -n 's/^commit \([^}]*\)/\1/p' | \
+        awk "BEGIN{a=0}{if(a==0){print}; if(/$commit/){a=1}}" | \
+        tail -r | \
+        while read x; do git show $x --color=always >> /tmp/git.diff; done && \
+            less -R /tmp/git.diff
+}
