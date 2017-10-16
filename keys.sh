@@ -4,7 +4,12 @@ alias 'cl=clear'
 alias 'vbp=vim ~/.bash_profile'
 alias 'vbpa=vim ~/.bash_profile_after'
 alias 'vteamocil=vim ~/.teamocil'
-alias 'abp=source ~/.bash_profile'
+function abp() {
+    PS1_TMP=$PS1
+    source ~/.bash_profile
+    export PS1=$PS1_TMP
+    unset PS1_TMP
+}
 alias 'v.=vim .'
 alias 'vbash=vim ~/bash'
 alias 'find.no.git=find . ! \( -path "*/.git*" -prune \)'
