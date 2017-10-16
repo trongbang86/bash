@@ -30,6 +30,15 @@ t2f.latest() {
     less +$i $T2F
 }
 
+
+less.latest() {
+    [ "$1" == "" ] && echo Please specify file... && return
+    [ ! -f "$1" ] && echo File does not exist... && return
+    i=$(wc -l "$1" | awk '{print $1}')
+    echo 'Press Enter to continue...'; read DUMMY
+    less +$i "$1"
+}
+
 git.from.commit() {
     if [ "$1" == "" ]
     then
