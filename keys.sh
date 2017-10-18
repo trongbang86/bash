@@ -16,7 +16,7 @@ alias 'find.no.git=find . ! \( -path "*/.git*" -prune \)'
 alias 'find.smart=find . ! \( -path "*/.git*" -prune \) -and ! \( -path "*/.idea*" \) -and ! \( -path "*/build/*" \)'
 alias 't2f=tee /tmp/t2f.txt'
 alias 'gs=git -c color.status=always status | less -R'
-gd() { git diff --color=always "$@" | less -R; }
+function gd() { git diff --color=always "$@" | less -R; }
 alias 'gl=git log --color=always | less -R'
 alias 'ga=git add'
 alias 'gc=git commit -m'
