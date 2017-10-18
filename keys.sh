@@ -97,3 +97,13 @@ git.from.commit.to.commit() {
         while read x; do git show $x --color=always >> /tmp/git.diff; done && \
             less -R /tmp/git.diff
 }
+
+function openssl.getCert() {
+    read -p "Enter server: " server
+    read -p "Enter port: " port
+    read -p "Output .cer file: " file
+    openssl s_client -showcerts -connect $server:$port -servername $server < /dev/null 2> /dev/null | openssl x509 -outform PEM > $file
+    unset server
+    unset port
+    unset file
+}
