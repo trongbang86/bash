@@ -10,8 +10,8 @@ source ~/bash/macos.sh
 
 source ~/bash/keys.sh
 
-[ "$(which gradle)" != "" ] && echo Calling ~/bash/gradle.sh && source ~/bash/gradle.sh
-
 [ -f "$BASH_PROFILE_AFTER" ] && echo Calling "$BASH_PROFILE_AFTER" && source "$BASH_PROFILE_AFTER"
+
+[ "$(which gradle)" != "" ] && echo Calling ~/bash/gradle.sh && source ~/bash/gradle.sh
 
 echo 'Finished .bash_profile'
