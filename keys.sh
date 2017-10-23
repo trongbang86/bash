@@ -1,6 +1,8 @@
 
 alias 'cd.=cd ~'
+alias 'cd.bash=cd ~/bash'
 alias 'cl=clear'
+alias 'll=ls -lat'
 alias 'vbp=vim ~/.bash_profile'
 alias 'vbpa=vim ~/.bash_profile_after'
 alias 'vteamocil=vim ~/.teamocil'
