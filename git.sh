@@ -6,6 +6,7 @@ alias 'gc=git commit -m'
 alias 'gp=git push'
 gb() { git branch "$@" | less; }
 
+# This shows all diff pages from the commit value provided
 git.from.commit() {
     if [ "$1" == "" ]
     then
@@ -29,6 +30,7 @@ git.from.commit() {
             less -R /tmp/git.diff
 }
 
+# This shows all diff pages from commit #1 to commit #2
 git.from.commit.to.commit() {
     if [ "$1" == "" ]
     then
@@ -60,14 +62,3 @@ git.from.commit.to.commit() {
             less -R /tmp/git.diff
 }
 
-function git.add.from.clipboard {
-    pbpaste | \
-        sed 's/^[ ]*//g' | \
-        while read file; \
-        do \
-            if [ ! -z "$file" -a "$file" != " " ]; then \
-                echo Adding $file; \
-                git add $file; \
-            fi \
-        done;
-}

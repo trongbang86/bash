@@ -5,3 +5,17 @@ export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
 alias 'pbl=pbpaste | less'
+
+# This adds all the files provided in clipboard
+# These files starts with empty space
+function git.add.from.clipboard {
+    pbpaste | \
+        sed 's/^[ ]*//g' | \
+        while read file; \
+        do \
+            if [ ! -z "$file" -a "$file" != " " ]; then \
+                echo Adding $file; \
+                git add $file; \
+            fi \
+        done;
+}
