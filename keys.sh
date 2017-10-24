@@ -1,10 +1,12 @@
 
 alias 'cd.=cd ~'
 alias 'cd.bash=cd ~/bash'
+alias 'cd.custom.bash=cd ~/custom_bash/'
 alias 'cl=clear'
 alias 'll=ls -lat'
 alias 'vbp=vim ~/.bash_profile'
-alias 'vbpa=vim ~/.bash_profile_after'
+alias "vbpa=vim $BASH_PROFILE_AFTER"
+alias "vbpb=vim $BASH_PROFILE_BEFORE"
 alias 'vteamocil=vim ~/.teamocil'
 function abp() {
     PS1_TMP=$PS1
