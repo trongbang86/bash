@@ -19,3 +19,16 @@ function git.add.from.clipboard {
             fi \
         done;
 }
+
+function hist.copy() {
+    if [ "$1" == "" ]; then
+        read -p 'Enter history number:' history_num
+    else
+        history_num=$1
+    fi
+    command=`history | grep "^[ ]*$history_num" | cut -d ' ' -f5-`
+    echo $command
+    echo $command | pbcopy
+    unset command
+    unset history_num
+}
