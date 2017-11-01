@@ -3,7 +3,8 @@ alias 'cd.=cd ~'
 alias 'cd.bash=cd ~/bash'
 alias 'cd.custom.bash=cd ~/custom_bash/'
 alias 'cl=clear'
-alias 'll=ls -lat'
+alias 'll=CLICOLOR_FORCE=1 ls -lat'
+alias 'lll=ll | less -R'
 alias 'vbp=vim ~/.bash_profile'
 alias "vbpa=vim $BASH_PROFILE_AFTER"
 alias "vbpb=vim $BASH_PROFILE_BEFORE"
@@ -16,6 +17,7 @@ function abp() {
 }
 alias 'v.=vim .'
 alias 'vbash=vim ~/bash'
+alias 'vcbash= vim ~/custom_bash'
 alias 'find.no.git=find . ! \( -path "*/.git*" -prune \)'
 alias 'find.smart=find . ! \( -path "*/.git*" -prune \) -and ! \( -path "*/.idea*" \) -and ! \( -path "*/build/*" \)'
 alias 't2f=tee /tmp/t2f.txt'
