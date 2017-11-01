@@ -7,8 +7,8 @@ echo 'Running .bash_profile'
 [ "$T2F" == "" ] && echo 'You have not set up $T2F'
 
 source ~/bash/macos.sh
-
 source ~/bash/keys.sh
+source ~/bash/git.sh
 
 [ "$(which gradle)" != "" ] && echo Calling ~/bash/gradle.sh && source ~/bash/gradle.sh
 
