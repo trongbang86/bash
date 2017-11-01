@@ -62,3 +62,21 @@ git.from.commit.to.commit() {
             less -R /tmp/git.diff
 }
 
+function git.search() {
+    search="$1"
+    if [ "$search" == "" ]; then
+        read -p "Enter search :" search
+    fi
+    # clear git.diff file
+    # filter git commits with the search term
+    # sed to filter the commit numbers
+    # for each commmit number, concat the 'git show' to git.diff 
+    # less to view the result
+    echo '' > /tmp/git.diff | \
+        git log -i --grep="$search" | \
+        sed -n 's/commit \([^}]*\)/\1/p' | \
+        tail -r | \
+        while read x; do git show $x --color=always >> /tmp/git.diff; done && \
+            less -R /tmp/git.diff
+
+}
