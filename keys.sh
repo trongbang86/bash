@@ -39,8 +39,10 @@ less.latest() {
     [ "$1" == "" ] && echo Please specify file... && return
     [ ! -f "$1" ] && echo File does not exist... && return
     i=$(wc -l "$1" | awk '{print $1}')
+    echo The last line number at this moment is $i
     echo 'Press Enter to continue...'; read DUMMY
     less -R +$i "$1"
+    unset i
 }
 
 function openssl.getCert() {
