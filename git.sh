@@ -1,10 +1,12 @@
 alias 'gs=git -c color.status=always status | less -R'
 function gd() { git diff --color=always "$@" | less -R; }
-alias 'gl=git log --color=always | less -R'
+function gl() {
+    git log --color=always "$@" | less -R
+}
 alias 'ga=git add'
 alias 'gc=git commit -m'
 alias 'gp=git push'
-gb() { git branch "$@" | less; }
+function gb() { git branch "$@" | less; }
 
 # This shows all diff pages from the commit value provided
 git.from.commit() {
@@ -74,7 +76,7 @@ function git.search() {
     # less to view the result
     echo '' > /tmp/git.diff | \
         git log -i --grep="$search" | \
-        sed -n 's/commit \([^}]*\)/\1/p' | \
+        sed -n 's/^commit \([^}]*\)/\1/p' | \
         tail -r | \
         while read x; do git show $x --color=always >> /tmp/git.diff; done && \
             less -R /tmp/git.diff

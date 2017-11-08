@@ -4,6 +4,7 @@ export PS1="$PS1LONG"
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
+alias 'pwd.copy=pwd | pbcopy'
 alias 'pbl=pbpaste | less'
 
 # This adds all the files provided in clipboard
