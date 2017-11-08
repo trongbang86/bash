@@ -8,7 +8,9 @@ echo 'Running .bash_profile'
 
 source ~/bash/macos.sh
 source ~/bash/keys.sh
+source ~/bash/ssh.sh
 source ~/bash/git.sh
+source ~/bash/sftp.sh
 
 [ "$(which gradle)" != "" ] && echo Calling ~/bash/gradle.sh && source ~/bash/gradle.sh
 
