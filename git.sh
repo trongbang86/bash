@@ -31,6 +31,7 @@ git.from.commit() {
         tail -r | \
         while read x; do git show $x --color=always >> /tmp/git.diff; done && \
             less -R /tmp/git.diff
+    unset commit
 }
 
 # This shows all diff pages from commit #1 to commit #2
@@ -63,6 +64,8 @@ git.from.commit.to.commit() {
         tail -r | \
         while read x; do git show $x --color=always >> /tmp/git.diff; done && \
             less -R /tmp/git.diff
+    unset commit1
+    unset commit2
 }
 
 function git.search() {
