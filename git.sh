@@ -6,6 +6,7 @@ function gl() {
 alias 'ga=git add'
 alias 'gc=git commit -m'
 alias 'gp=git push'
+alias 'gsl=git stash list'
 function gb() { git branch "$@" | less; }
 
 # This shows all diff pages from the commit value provided
