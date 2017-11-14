@@ -33,3 +33,26 @@ function hist.copy() {
     unset command
     unset history_num
 }
+
+# This helps edit the last command from history
+function ec() {
+    file=/tmp/ec.tmp
+    last_command=$(history | \
+        tail -r | \
+        cut -d ' ' -f5- | \
+        while read c; do \
+            if [ "$c" != "lc" ] && [ "$c" != "ec" ]; then \
+                # if it's not lc command
+                # then use it
+                echo $c; \
+            fi \
+        done | \
+        head -1)
+    echo $last_command > $file
+    vim $file
+    cat $file | pbcopy
+    rm $file
+    unset file
+    unset last_command
+}
+
