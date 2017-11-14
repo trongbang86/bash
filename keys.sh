@@ -22,6 +22,24 @@ alias 'find.no.git=find . ! \( -path "*/.git*" -prune \)'
 alias 'find.smart=find . ! \( -path "*/.git*" -prune \) -and ! \( -path "*/.idea*" \) -and ! \( -path "*/build/*" \)'
 alias 't2f=tee /tmp/t2f.txt'
 alias 'hist=history | less'
+
+# This copies the last command from history
+function lc() {
+    last_command=$(history | \
+        tail -r | \
+        cut -d ' ' -f5- | \
+        while read c; do \
+            if [ "$c" != "lc" ]; then \
+                # if it's not lc command
+                # then use it
+                echo $c; \
+            fi \
+        done | \
+        head -1)
+    eval "$last_command"
+    unset last_command
+}
+
 alias ps1.long="export "PS1=\$PS1LONG""
 alias ps1.short="export "PS1=\$PS1SHORT""
 
