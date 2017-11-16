@@ -12,6 +12,7 @@ alias 'pbl=pbpaste | less'
 function git.add.from.clipboard {
     pbpaste | \
         sed 's/^[ ]*//g' | \
+        sed 's/modified://g' | \
         while read file; \
         do \
             if [ ! -z "$file" -a "$file" != " " ]; then \
@@ -19,6 +20,22 @@ function git.add.from.clipboard {
                 git add $file; \
             fi \
         done;
+    git status
+}
+
+# This helps add files in clipboard with edit feature
+function git.add.from.clipboard.with.edit() {
+    pbedit
+    git.add.from.clipboard
+}
+
+# This helps edit the clipboard
+function pbedit() {
+    file=/tmp/pbedit.tmp
+    pbpaste > $file
+    vim $file
+    cat $file | pbcopy
+    unset file
 }
 
 # This helps copy a command from history
