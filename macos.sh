@@ -74,7 +74,7 @@ function ec() {
         tail -r | \
         cut -d ' ' -f5- | \
         while read c; do \
-            if [ "$c" != "lc" ] && [ "$c" != "ec" ]; then \
+            if [ "$c" != "lc" ] && [ "$c" != "ec" ] && [ "$c" != "hist" ]; then \
                 # if it's not lc command
                 # then use it
                 echo $c; \
