@@ -21,6 +21,8 @@ function git.add.from.clipboard {
         done;
 }
 
+# This helps copy a command from history
+# and copies it to clipboard
 function h.c() {
     if [ "$1" == "" ]; then
         read -p 'Enter history number:' history_num
@@ -34,6 +36,8 @@ function h.c() {
     unset history_num
 }
 
+# This helps edit a command from history
+# and copies it to clipboard
 function h.e() {
     command=$(h.c $@)
     file=/tmp/ec.tmp
