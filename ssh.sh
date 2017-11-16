@@ -1,6 +1,7 @@
 # This starts ssh agent to keep secret key/passphrase
 function ssh.start.agent() {
-    exec ssh-agent bash
+    #exec ssh-agent bash
+    eval `ssh-agent`
     ssh-add
 }
 

@@ -21,17 +21,29 @@ function git.add.from.clipboard {
         done;
 }
 
-function hist.copy() {
+function h.c() {
     if [ "$1" == "" ]; then
         read -p 'Enter history number:' history_num
     else
         history_num=$1
     fi
     command=`history | grep "^[ ]*$history_num" | cut -d ' ' -f5-`
-    echo $command
     echo $command | pbcopy
+    echo $command
     unset command
     unset history_num
+}
+
+function h.e() {
+    command=$(h.c $@)
+    file=/tmp/ec.tmp
+    echo $command > $file
+    vim $file
+    cat $file | pbcopy
+    rm $file
+    unset file
+    unset command
+
 }
 
 # This helps edit the last command from history
