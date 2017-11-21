@@ -1,7 +1,8 @@
 # This starts ssh agent to keep secret key/passphrase
 function ssh.start.agent() {
     #exec ssh-agent bash
-    eval `ssh-agent`
+    eval `ssh-agent` > /dev/null
+    set_ssh_agent_socket # ssh-find-agent.sh
     ssh-add
 }
 
@@ -44,3 +45,4 @@ function ssh.custom() {
     unset server
 }
 
+source ~/bash/ssh-find-agent.sh
