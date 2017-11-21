@@ -12,6 +12,8 @@ source ~/bash/ssh.sh
 source ~/bash/git.sh
 source ~/bash/sftp.sh
 
+set_ssh_agent_socket #ssh-find-agent.sh
+
 [ "$(which gradle)" != "" ] && echo Calling ~/bash/gradle.sh && source ~/bash/gradle.sh
 
 [ -f "$BASH_PROFILE_AFTER" ] && echo Calling "$BASH_PROFILE_AFTER" && source "$BASH_PROFILE_AFTER"
