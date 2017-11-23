@@ -45,4 +45,4 @@ function ssh.custom() {
     unset server
 }
 
-source ~/bash/ssh-find-agent.sh
+[ -f ~/bash/ssh-find-agent.sh ] && source ~/bash/ssh-find-agent.sh

@@ -5,9 +5,24 @@ function gl() {
 }
 alias 'ga=git add'
 alias 'gc=git commit -m'
-alias 'gp=git push'
 alias 'gsl=git stash list'
 function gb() { git branch "$@" | less; }
+
+function gp() {
+    file='/tmp/gp.tmp'
+    command="git push | tee $file"
+    eval $command
+    ret=$?
+    echo "Return:$ret"
+    rm $file
+    unset command
+    unset file
+}
+
+# This shows diff for one particular commit
+git.commit.show() {
+    git.from.commit.to.commit $1 $1
+}
 
 # This shows all diff pages from the commit value provided
 git.from.commit() {
