@@ -20,7 +20,6 @@ alias 'vbash=vim ~/bash'
 alias 'vcbash= vim ~/custom_bash'
 alias 'find.no.git=find . ! \( -path "*/.git*" -prune \)'
 alias 'find.smart=find . ! \( -path "*/.git*" -prune \) -and ! \( -path "*/.idea*" \) -and ! \( -path "*/build/*" \)'
-alias 't2f=tee /tmp/t2f.txt'
 alias 'hist=history | less'
 
 # This copies the last command from history
@@ -45,6 +44,7 @@ alias ps1.short="export "PS1=\$PS1SHORT""
 
 alias "t2f=tee $T2F"
 alias "lt2f= less -R $T2F"
+alias "vt2f= vim $T2F"
 
 t2f.latest() {
     i=$(wc -l $T2F | awk '{print $1}')
