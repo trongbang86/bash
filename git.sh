@@ -83,21 +83,28 @@ git.from.commit.to.commit() {
     unset commit2
 }
 
+# This is to show diff for the git commits that
+# satisfy the search requirements
+# usage: git.search 'a message' 'author'
 function git.search() {
-    search="$1"
-    if [ "$search" == "" ]; then
-        read -p "Enter search :" search
+    if [ "$1" == "" ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+        echo "Usage: git.search 'a message' 'author'"
+        return
     fi
+    search="$1"
+    author="$2"
     # clear git.diff file
     # filter git commits with the search term
     # sed to filter the commit numbers
     # for each commmit number, concat the 'git show' to git.diff 
     # less to view the result
     echo '' > /tmp/git.diff | \
-        git log -i --grep="$search" | \
+        git log -i --grep="$search" --author="$author" | \
         sed -n 's/^commit \([^}]*\)/\1/p' | \
         tail -r | \
         while read x; do git show $x --color=always >> /tmp/git.diff; done && \
             less -R /tmp/git.diff
+    unset search
+    unset author
 
 }
