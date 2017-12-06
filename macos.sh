@@ -56,7 +56,12 @@ function h.c() {
 # This helps edit a command from history
 # and copies it to clipboard
 function h.e() {
-    command=$(h.c $@)
+    if [ "$1" == "" ]; then
+        read -p 'Enter history number:' history_num
+    else
+        history_num=$1
+    fi
+    command=`history | grep "^[ ]*$history_num" | cut -d ' ' -f5-`
     file=/tmp/ec.tmp
     echo $command > $file
     vim $file
