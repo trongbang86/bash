@@ -23,6 +23,14 @@ function git.add.from.clipboard {
     git status
 }
 
+# This helps add files in clipboard copied from
+# git status
+function git.add.from.clipboard.with.edit.from.status() {
+    git status | pbcopy
+    pbedit
+    git.add.from.clipboard
+}
+
 # This helps add files in clipboard with edit feature
 function git.add.from.clipboard.with.edit() {
     pbedit
