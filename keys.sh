@@ -73,3 +73,12 @@ function openssl.getCert() {
     unset file
 }
 
+function ps.grep() {
+    # add more lines between new lines
+    # split -D with new lines for java
+    ps aux | \
+        grep $1 |  \
+        sed $'s/$/\\\n\\\n\\\n\\\n\\\n/g' | \
+        sed $'s/-D/\\\n-D/g' | \
+        less
+}
