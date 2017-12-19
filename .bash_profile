@@ -6,11 +6,11 @@ echo 'Running .bash_profile'
 
 [ "$T2F" == "" ] && echo 'You have not set up $T2F'
 
-source ~/bash/macos.sh
 source ~/bash/keys.sh
 source ~/bash/ssh.sh
 source ~/bash/git.sh
 source ~/bash/sftp.sh
+source ~/bash/macos.sh
 
 set_ssh_agent_socket #ssh-find-agent.sh
 

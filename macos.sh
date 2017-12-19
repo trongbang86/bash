@@ -7,6 +7,20 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 alias 'pwd.copy=pwd | pbcopy'
 alias 'pbl=pbpaste | less'
 
+function gp.force() {
+    file='/tmp/gp.tmp'
+    command="git push 2>&1 | tee $file"
+    eval $command
+    if grep -q 'has no upstream branch' $file; then
+        force=`tail -2 $file | head -1`
+        eval $force
+    fi
+    rm $file
+    unset command
+    unset force
+    unset file
+}
+
 # This adds all the files provided in clipboard
 # These files starts with empty space
 function git.add.from.clipboard {
