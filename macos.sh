@@ -96,7 +96,11 @@ function h.e() {
 
 # This helps edit the last command from history
 function ec() {
+    total=1
     file=/tmp/ec.tmp
+    if [ -n "$1" ]; then
+        total=$1
+    fi
     last_command=$(history | \
         tail -r | \
         cut -d ' ' -f5- | \
@@ -104,15 +108,16 @@ function ec() {
             if [ "$c" != "lc" ] && [ "$c" != "ec" ] && [ "$c" != "hist" ]; then \
                 # if it's not lc command
                 # then use it
-                echo $c; \
+                echo "$c"; \
             fi \
         done | \
-        head -1)
-    echo $last_command > $file
+        head -$total)
+    echo "$last_command" > $file
     vim $file
     cat $file | pbcopy
     rm $file
     unset file
+    unset total
     unset last_command
 }
 
