@@ -18,9 +18,9 @@ function sftp.put() {
     server="${args[0]}"
     file="${args[1]}"
     folder="${args[2]}"
-    sftp $server:$remote_folder <<< "put $file"
+    sftp $server:$folder <<< "put $file"
     #sftp $server
-    unset remote_folder
+    unset folder
     unset server
     unset file
 }
