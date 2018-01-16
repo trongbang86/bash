@@ -6,6 +6,7 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 
 alias 'pwd.copy=pwd | pbcopy'
 alias 'pbl=pbpaste | less'
+alias 'vim.pb=pbpaste | vim -'
 
 function gp.force() {
     file='/tmp/gp.tmp'

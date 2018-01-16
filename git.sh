@@ -98,3 +98,7 @@ function git.search() {
     unset author
 
 }
+
+function git.stash.all() {
+    git stash save -u
+}
