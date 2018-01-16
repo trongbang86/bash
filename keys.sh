@@ -47,9 +47,14 @@ alias "lt2f= less -R $T2F"
 alias "vt2f= vim $T2F"
 
 t2f.latest() {
-    i=$(wc -l $T2F | awk '{print $1}')
+    cb_file=/tmp/cb.t2f.latest.txt
+    cb_i=$(wc -l $T2F | awk '{print $1}')
     echo 'Press Enter to continue...'; read DUMMY
-    less -R +$i $T2F
+    tail -$cb_i $T2F > $cb_file
+    less -R $cb_file
+    rm $cb_file
+    unset cb_file
+    unset cb_i
 }
 
 
