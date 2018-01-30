@@ -122,3 +122,28 @@ function ec() {
     unset last_command
 }
 
+# This helps search and edit commands from history
+function ec.search() {
+    file=/tmp/ec.tmp
+    if [ -n "$1" ]; then
+        query=$1
+    else
+        read -p 'Enter search:' query
+    fi
+    commands=$(history | \
+        tail -r | \
+        tail +2 | \
+        cut -d ' ' -f5- | \
+        while read c; do \
+            if [ "$(echo $c | grep -i $query)" != "" ]; then \
+                echo "$c"; \
+            fi \
+        done)
+    echo "$commands" > $file
+    vim $file
+    cat $file | pbcopy
+    rm $file
+    unset file
+    unset query
+    unset commands
+}
