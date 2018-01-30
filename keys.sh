@@ -22,6 +22,11 @@ alias 'find.no.git=find . ! \( -path "*/.git*" -prune \)'
 alias 'find.smart=find . ! \( -path "*/.git*" -prune \) -and ! \( -path "*/.idea*" \) -and ! \( -path "*/build/*" \)'
 alias 'hist=history | less'
 
+# This adds more line breaks
+function awk.more.lines() {
+    awk '{printf("%s\n\n\n\n",$0)}'
+}
+
 # This copies the last command from history
 function lc() {
     last_command=$(history | \
