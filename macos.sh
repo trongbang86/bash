@@ -140,7 +140,8 @@ function ec.search() {
         tail +2 | \
         cut -d ' ' -f5- | \
         while read c; do \
-            if [ "$(echo $c | grep -i $query)" != "" ]; then \
+            c=$(echo $c | grep -i "$query")
+            if [ "$c" != "" ]; then \
                 echo "$c"; \
             fi \
         done)
