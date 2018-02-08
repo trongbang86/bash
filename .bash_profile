@@ -11,6 +11,7 @@ source ~/bash/ssh.sh
 source ~/bash/git.sh
 source ~/bash/sftp.sh
 source ~/bash/macos.sh
+source ~/bash/java.sh
 
 set_ssh_agent_socket #ssh-find-agent.sh
 
