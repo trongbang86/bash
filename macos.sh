@@ -28,6 +28,7 @@ function git.add.from.clipboard {
     pbpaste | \
         sed 's/^[ ]*//g' | \
         sed 's/modified://g' | \
+        sed 's/deleted://g' | \
         while read file; \
         do \
             if [ ! -z "$file" -a "$file" != " " ]; then \
