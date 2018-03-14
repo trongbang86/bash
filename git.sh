@@ -100,5 +100,5 @@ function git.search() {
 }
 
 function git.stash.all() {
-    git stash save -u
+    git stash save -u "$1"
 }
