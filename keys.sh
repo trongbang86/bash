@@ -100,10 +100,20 @@ function ps.grep() {
 # 4) unzip
 # 5) open folder
 # 6) go back to the previous folder
-function unzip.tar() {
+function unzip._command() {
+    unzipCommand=$1
+    if [ -z "$unzipCommand" ]; then
+        echo Please enter unzipCommand
+        return 1
+    fi
+
+    if [ -f "$unzipCommand" ]; then
+        echo Usage: unzip.command 'tar -xzf' 'file.tar.gz'
+        return 1
+    fi
     # 1)
     echo 'Reading file name'
-    file=$1
+    file=$2
     CURR=`pwd`
     if [ -z "$file" ]; then
         read -p "Enter a file :" file
@@ -132,7 +142,7 @@ function unzip.tar() {
     mkdir $folder
     cp $file $folder
     cd $folder
-    tar -xzf $fileName
+    eval "$unzipCommand $fileName"
     rm $fileName
     # 5)
     echo 'Openning zipped folder'
@@ -143,4 +153,15 @@ function unzip.tar() {
     unset folder
     unset CURR
     unset file
+    unset unzipCommand
+}
+
+# this unzips a tar file
+function unzip.tar() {
+    unzip._command 'tar -xzf' $1
+}
+
+# this unzips a zipped file
+function unzip.zip() {
+    unzip._command 'unzip -q' $1
 }
