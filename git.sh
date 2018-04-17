@@ -12,21 +12,28 @@ function gb() { git branch "$@" | less; }
 # view and delete branches
 function gb.delete() {
     FILE=/tmp/git.branch
+    if [ "$1" == "force" ]; then
+        MODE='-D'
+    else
+        MODE='-d'
+    fi
     git branch | grep -v '\*' > $FILE
     vim $FILE
-    cat $FILE | xargs git branch -d | less
-    rm $FILE
+    read -p 'Type "yes" to confirm to delete branches: ' CONFIRMATION
+    if [ "$CONFIRMATION" == "yes" ]; then
+        cat $FILE | xargs git branch $MODE | less
+        rm $FILE
+    else
+        echo 'You are safe. Nothing was deleted.'
+    fi
     unset FILE
+    unset CONFIRMATION
+    unset MODE
 }
 
 # view and delete branches with force
 function gb.delete.force() {
-    FILE=/tmp/git.branch
-    git branch | grep -v '\*' > $FILE 
-    vim $FILE
-    cat $FILE | xargs git branch -D | less
-    rm $FILE
-    unset FILE
+    gb.delete 'force'
 }
 
 # This shows diff for one particular commit
