@@ -9,10 +9,32 @@ alias 'gsl=git stash list'
 alias 'gp=git push'
 function gb() { git branch "$@" | less; }
 
+# view and delete branches
+function gb.delete() {
+    FILE=/tmp/git.branch
+    git branch | grep -v '\*' > $FILE
+    vim $FILE
+    cat $FILE | xargs git branch -d | less
+    rm $FILE
+    unset FILE
+}
+
+# view and delete branches with force
+function gb.delete.force() {
+    FILE=/tmp/git.branch
+    git branch | grep -v '\*' > $FILE 
+    vim $FILE
+    cat $FILE | xargs git branch -D | less
+    rm $FILE
+    unset FILE
+}
+
 # This shows diff for one particular commit
 git.commit.show() {
     git.from.commit.to.commit $1 $1
 }
+
+
 
 # This shows all diff pages from the commit value provided
 git.from.commit() {
