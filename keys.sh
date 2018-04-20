@@ -1,3 +1,4 @@
+export IGNOREEOF=4   # Shell only exists after the 4th consecutive Ctrl-d
 
 alias 'cd.=cd ~'
 alias 'cd.bash=cd ~/bash'
