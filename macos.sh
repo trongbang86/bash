@@ -4,6 +4,8 @@ export PS1="$PS1LONG"
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
+export IGNOREEOF=4   # Shell only exists after the 4th consecutive Ctrl-d
+
 alias 'pwd.copy=pwd | pbcopy'
 alias 'pbl=pbpaste | less'
 alias 'vim.pb=pbpaste | vim -'
