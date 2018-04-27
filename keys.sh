@@ -49,6 +49,14 @@ function lc() {
 alias ps1.long="export "PS1=\$PS1LONG""
 alias ps1.short="export "PS1=\$PS1SHORT""
 
+function ps1 {
+    if [ "$PS1" == "$PS1LONG" ]; then
+        ps1.short
+    else
+        ps1.long
+    fi
+}
+
 alias "t2f=tee $T2F"
 alias "lt2f= less -R $T2F"
 alias "vt2f= vim $T2F"
