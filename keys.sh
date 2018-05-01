@@ -21,7 +21,7 @@ alias 'v.=vim .'
 alias 'vbash=vim ~/bash'
 alias 'vcbash= vim ~/custom_bash'
 alias 'find.no.git=find . ! \( -path "*/.git*" -prune \)'
-alias 'find.smart=find . ! \( -path "*/.git*" -prune \) -and ! \( -path "*/.idea*" \) -and ! \( -path "*/build/*" \)'
+alias 'find.smart=find . ! \( -path "*/.git*" -prune \) -and ! \( -path "*/node_modules*" -prune \) -and ! \( -path "*/bower_components*" -prune \) -and ! \( -path "*/.idea*" \) -and ! \( -path "*/build/*" \)'
 alias 'hist=history | less'
 
 # This adds more line breaks
