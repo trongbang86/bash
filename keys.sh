@@ -51,10 +51,10 @@ alias ps1.medium="export "PS1=\$PS1MEDIUM""
 alias ps1.short="export "PS1=\$PS1SHORT""
 
 function ps1 {
-    if [ "$PS1" == "$PS1MEDIUM" ]; then
+    if [ "$PS1" == "$PS1LONG" ]; then
         ps1.short
     else
-        ps1.medium
+        ps1.long
     fi
 }
 
