@@ -47,13 +47,14 @@ function lc() {
 }
 
 alias ps1.long="export "PS1=\$PS1LONG""
+alias ps1.medium="export "PS1=\$PS1MEDIUM""
 alias ps1.short="export "PS1=\$PS1SHORT""
 
 function ps1 {
-    if [ "$PS1" == "$PS1LONG" ]; then
+    if [ "$PS1" == "$PS1MEDIUM" ]; then
         ps1.short
     else
-        ps1.long
+        ps1.medium
     fi
 }
 

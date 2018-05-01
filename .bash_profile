@@ -13,6 +13,10 @@ source ~/bash/sftp.sh
 source ~/bash/macos.sh
 source ~/bash/java.sh
 
+[ "$PS1LONG" == "" ] && echo 'You have not set up $PS1LONG'
+[ "$PS1MEDIUM" == "" ] && echo 'You have not set up $PS1MEDIUM'
+[ "$PS1SHORT" == "" ] && echo 'You have not set up $PS1SHORT'
+
 set_ssh_agent_socket #ssh-find-agent.sh
 
 [ "$(which gradle)" != "" ] && echo Calling ~/bash/gradle.sh && source ~/bash/gradle.sh
