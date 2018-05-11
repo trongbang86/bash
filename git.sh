@@ -6,7 +6,24 @@ function gl() {
 alias 'ga=git add'
 alias 'gc=git commit -m'
 alias 'gsl=git stash list'
-alias 'gp=git push'
+
+# git push with checking for master branch
+function gp() {
+    # checking if it's on master branch
+    CHECK=$(git status | head -1 | grep 'On branch master')
+    if [ -n "$CHECK" ]; then
+        read -p 'Type "no" to stop commiting to master branch:' CONFIRMATION
+        if [ "$CONFIRMATION" == "no" ]; then
+            echo 'You are safe. Nothing was deleted.'
+        else
+            git push
+        fi
+    else
+        git push
+    fi
+    unset CHECK
+}
+
 function gb() { git branch "$@" | less; }
 
 # view and delete branches
