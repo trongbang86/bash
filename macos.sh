@@ -23,6 +23,23 @@ function gp.force() {
     unset file
 }
 
+# This helps clean the changes for files from clipboard
+# by doing git checkout HEAD for those files
+function git.checkout.HEAD.from.clipboard {
+    pbpaste | \
+        sed 's/^[ ]*//g' | \
+        sed 's/modified://g' | \
+        sed 's/deleted://g' | \
+        while read file; \
+        do \
+            if [ ! -z "$file" -a "$file" != " " ]; then \
+                echo git checkout HEAD -- $file; \
+                git checkout HEAD -- $file; \
+            fi \
+        done;
+    git status
+}
+
 # This adds all the files provided in clipboard
 # These files starts with empty space
 function git.add.from.clipboard {
@@ -51,6 +68,14 @@ function git.add.from.status.with.edit() {
     git status | pbcopy
     pbedit
     git.add.from.clipboard
+}
+
+# This helps clean the changes for files in 
+# git status list
+function git.checkout.HEAD.from.status() {
+    git status | pbcopy
+    pbedit
+    git.checkout.HEAD.from.clipboard
 }
 
 # This helps add files in clipboard with edit feature
