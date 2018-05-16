@@ -6,6 +6,7 @@ function gl() {
 alias 'ga=git add'
 alias 'gc=git commit -m'
 alias 'gsl=git stash list'
+alias 'git.conflicts=git diff --name-only --diff-filter=U | less'
 
 # git push with checking for master branch
 function gp() {
