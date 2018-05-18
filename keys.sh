@@ -6,6 +6,7 @@ alias 'cd.custom.bash=cd ~/custom_bash/'
 alias 'cl=clear'
 alias 'll=CLICOLOR_FORCE=1 ls -lat'
 alias 'll.10=CLICOLOR_FORCE=1 ls -lat | head -10'
+alias 'll.grep=ll | grep -i'
 alias 'lll=ll | less -R'
 alias 'vbp=vim ~/.bash_profile'
 alias "vbpa=vim $BASH_PROFILE_AFTER"
