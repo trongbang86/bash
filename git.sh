@@ -3,7 +3,15 @@ function gd() { git diff --color=always "$@" | less -R; }
 function gl() {
     git log --color=always "$@" | less -R
 }
-alias 'ga=git add'
+
+function ga() {
+    if [ -z "$1" ]; then 
+        git add .
+    else
+        git add "$@"
+    fi
+}
+
 alias 'gc=git commit -m'
 alias 'gsl=git stash list'
 alias 'git.conflicts=git diff --name-only --diff-filter=U | less'
