@@ -12,6 +12,7 @@ source ~/bash/git.sh
 source ~/bash/sftp.sh
 source ~/bash/macos.sh
 source ~/bash/java.sh
+source ~/bash/zip.sh
 
 [ "$PS1LONG" == "" ] && echo 'You have not set up $PS1LONG'
 [ "$PS1MEDIUM" == "" ] && echo 'You have not set up $PS1MEDIUM'
