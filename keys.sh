@@ -12,12 +12,6 @@ alias 'vbp=vim ~/.bash_profile'
 alias "vbpa=vim $BASH_PROFILE_AFTER"
 alias "vbpb=vim $BASH_PROFILE_BEFORE"
 alias 'vteamocil=vim ~/.teamocil'
-function abp() {
-    PS1_TMP=$PS1
-    source ~/.bash_profile
-    export PS1=$PS1_TMP
-    unset PS1_TMP
-}
 alias 'v.=vim .'
 alias 'vbash=vim ~/bash'
 alias 'vcbash= vim ~/custom_bash'
