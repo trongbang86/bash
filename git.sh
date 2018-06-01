@@ -1,4 +1,3 @@
-alias 'gs=git -c color.status=always status | less -R'
 function gs() {
     git -c color.status=always status | less -R
     git status | head -1 | cut -d ' ' -f 3
