@@ -1,4 +1,8 @@
 alias 'gs=git -c color.status=always status | less -R'
+function gs() {
+    git -c color.status=always status | less -R
+    git status | head -1 | cut -d ' ' -f 3
+}
 function gd() { git diff --color=always "$@" | less -R; }
 function gl() {
     git log --color=always "$@" | less -R
