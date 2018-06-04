@@ -18,6 +18,8 @@ function sftp.put() {
     server="${args[0]}"
     file="${args[1]}"
     folder="${args[2]}"
+    [[ -z "$file" ]] && read -p 'File to copy:' file
+    [[ -z "$folder" ]] && read -p 'Folder on server:' folder
     sftp $server:$folder <<< "put $file"
     #sftp $server
     unset folder
