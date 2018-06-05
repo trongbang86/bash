@@ -4,6 +4,19 @@ BASH_PROFILE_PLAIN=~/custom_bash/.bash_profile_plain
 PS1_FLAG_USED=0
 echo 'Running .bash_profile'
 
+function is.debug() {
+    [[ "$DEBUG" == "true" ]] && return 0
+    return 1
+}
+
+function debug.enable() {
+    export DEBUG=true
+}
+
+function debug.disable() {
+    export DEBUG=false
+}
+
 function call.file() {
     [ -f "$1" ] && echo Calling  "$1" && source "$1" && echo Finished  "$1"
 }
