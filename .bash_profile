@@ -4,12 +4,16 @@ BASH_PROFILE_PLAIN=~/custom_bash/.bash_profile_plain
 PS1_FLAG_USED=0
 echo 'Running .bash_profile'
 
-[ -f "$BASH_PROFILE_PLAIN" ] && echo Calling  "$BASH_PROFILE_PLAIN" && source "$BASH_PROFILE_PLAIN" && echo Finished  "$BASH_PROFILE_PLAIN"
+function call.file() {
+    [ -f "$1" ] && echo Calling  "$1" && source "$1" && echo Finished  "$1"
+}
+
+call.file $BASH_PROFILE_PLAIN
 
 function abp() {
     PS1_TMP=$PS1
 
-    [ -f "$BASH_PROFILE_BEFORE" ] && echo Calling  "$BASH_PROFILE_BEFORE" && source "$BASH_PROFILE_BEFORE" && echo Finished  "$BASH_PROFILE_BEFORE"
+    call.file $BASH_PROFILE_BEFORE
 
     [ "$T2F" == "" ] && echo 'You have not set up $T2F'
 
@@ -29,7 +33,7 @@ function abp() {
 
     [ "$(which gradle)" != "" ] && echo Calling ~/bash/gradle.sh && source ~/bash/gradle.sh
 
-    [ -f "$BASH_PROFILE_AFTER" ] && echo Calling "$BASH_PROFILE_AFTER" && source "$BASH_PROFILE_AFTER" && echo Finished "$BASH_PROFILE_AFTER"
+    call.file $BASH_PROFILE_AFTER
 
     [ "$PS1_FLAG_USED" == "1" ] && export PS1=$PS1_TMP
 
