@@ -99,3 +99,18 @@ function ps.grep() {
         less
 }
 
+# Get the name of the corresponding script
+# for the current folder
+function scripts.name() {
+    echo /tmp/scripts_$(pwd | sed 's/\//_/g' | sed 's/:/_/g').sh
+}
+
+# Creating on-the-fly script to edit
+function scripts.edit() {
+    vim $(scripts.name)
+}
+
+# Source the on-the-fly-script
+function scripts.source() {
+    source $(scripts.name)
+}
