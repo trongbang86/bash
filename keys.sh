@@ -110,7 +110,12 @@ function scripts.edit() {
     vim $(scripts.name)
 }
 
-# Source the on-the-fly-script
+# Source the on-the-fly script
 function scripts.source() {
     source $(scripts.name)
+}
+
+# Run the on-the-fly script
+function scripts.run() {
+    . $(scripts.name)
 }
