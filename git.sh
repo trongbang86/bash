@@ -48,6 +48,10 @@ function gb.delete() {
     fi
     git branch | grep -v '\*' > $FILE
     vim $FILE
+    echo You are about to delete the following branches
+    echo -------------------------
+    cat $FILE
+    echo -------------------------
     read -p 'Type "yes" to confirm to delete branches: ' CONFIRMATION
     if [ "$CONFIRMATION" == "yes" ]; then
         cat $FILE | xargs git branch $MODE | less
