@@ -74,7 +74,11 @@ git.commit.show() {
     git.from.commit.to.commit $1 $1
 }
 
-
+git.commit.show.last() {
+    last_commit=$(gl | head -1 | awk '{print $2}')
+    git show $last_commit
+    unset last_commit
+}
 
 # This shows all diff pages from the commit value provided
 git.from.commit() {
