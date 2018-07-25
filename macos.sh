@@ -78,6 +78,14 @@ function git.checkout.HEAD.from.status() {
     git.checkout.HEAD.from.clipboard
 }
 
+function git.commit.show.last() {
+    last_commit=$(git log | head -1 | awk '{print $2}')
+    echo $last_commit | pbcopy
+    git show "$last_commit"
+    unset last_commit
+}
+
+
 # This helps add files in clipboard with edit feature
 function git.add.from.clipboard.with.edit() {
     pbedit
