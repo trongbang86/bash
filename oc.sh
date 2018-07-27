@@ -95,3 +95,57 @@ function oc.rsh.pod.last() {
     fi
     oc rsh $GLOBAL_OS_LAST_POD
 }
+
+function oc.rsync.from.pod.to.local() {
+    oc.pods.find.last.with.loop $1
+    if [ "$GLOBAL_OS_LAST_POD" == "FLAG_QUIT" ]; then
+        echo Quitting
+        return
+    fi
+    local pod_location=$2
+    if [ -z "$pod_location" ]; then
+        printf "Enter Pod's location:"
+        read pod_location
+        if [ -z "$pod_location" ]; then
+            echo "Empty Pod's location: $pod_location"
+            return
+        fi
+    fi
+    local local_location=$2
+    if [ -z "$local_location" ]; then
+        printf "Enter local location:"
+        read local_location
+        if [ -z "$local_location" ]; then
+            echo "Empty local location: $local_location"
+            return
+        fi
+    fi
+    oc rsync $GLOBAL_OS_LAST_POD:$pod_location $local_location
+}
+
+function oc.rsync.from.local.to.pod() {
+    oc.pods.find.last.with.loop $2
+    if [ "$GLOBAL_OS_LAST_POD" == "FLAG_QUIT" ]; then
+        echo Quitting
+        return
+    fi
+    local pod_location=$3
+    if [ -z "$pod_location" ]; then
+        printf "Enter Pod's location:"
+        read pod_location
+        if [ -z "$pod_location" ]; then
+            echo "Empty Pod's location: $pod_location"
+            return
+        fi
+    fi
+    local local_location=$1
+    if [ -z "$local_location" ]; then
+        printf "Enter local location:"
+        read local_location
+        if [ -z "$local_location" ]; then
+            echo "Empty local location: $local_location"
+            return
+        fi
+    fi
+    oc rsync $local_location $GLOBAL_OS_LAST_POD:$pod_location 
+}
