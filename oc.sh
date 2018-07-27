@@ -48,33 +48,50 @@ function oc.pods.last.time() {
         | awk '{print $5}')
 }
 
-function oc.logs.pod.last() {
-    pod=$1
+function oc.pods.find.last.with.loop() {
+    local pod=$1
     if [ -z "$pod" ]; then
         printf "Please enter pod name:"
         read pod
     fi
-    continue_flag=r
+    local continue_flag=r
     while [ "$continue_flag" == "r" ]
     do
-        last_pod=$(oc.pods.find.last $pod)
+        local last_pod=$(oc.pods.find.last $pod)
         if [ -z "$last_pod" ]; then
             printf "There is nothing to show."
         else
-            time=$(oc.pods.last.time $last_pod)
-            status=$(oc.pods.last.status $last_pod)
+            local time=$(oc.pods.last.time $last_pod)
+            local status=$(oc.pods.last.status $last_pod)
             printf "Last Pod is $last_pod($time)($status)." 
         fi
         printf " Do you want to continue or recheck(c=continue, r=recheck, q=quit)?"
         read continue_flag
         if [ "$continue_flag" == "q" ]; then
-            return
+            break
         fi
     done
-    oc.logs $last_pod
-    unset continue_flag
-    unset last_pod
-    unset pod
-    unset time
-    unset status
+    if [ "$continue_flag" == "q" ]; then
+        GLOBAL_OS_LAST_POD='FLAG_QUIT'
+    else
+        GLOBAL_OS_LAST_POD=$last_pod
+    fi
+}
+
+function oc.logs.pod.last() {
+    oc.pods.find.last.with.loop $1
+    if [ "$GLOBAL_OS_LAST_POD" == "FLAG_QUIT" ]; then
+        echo Quitting
+        return
+    fi
+    oc.logs $GLOBAL_OS_LAST_POD
+}
+
+function oc.rsh.pod.last() {
+    oc.pods.find.last.with.loop $1
+    if [ "$GLOBAL_OS_LAST_POD" == "FLAG_QUIT" ]; then
+        echo Quitting
+        return
+    fi
+    oc rsh $GLOBAL_OS_LAST_POD
 }
