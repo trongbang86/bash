@@ -10,8 +10,6 @@ function call_file() {
     [ -f "$1" ] && echo Calling  "$1" && source "$1" && echo Finished  "$1"
 }
 
-call_file $BASH_PROFILE_PLAIN
-
 function abp() {
     PS1_TMP=$PS1
 
@@ -40,5 +38,7 @@ function abp() {
     PS1_FLAG_USED=1
 
 }
+
+call_file $BASH_PROFILE_PLAIN
 
 echo 'Finished .bash_profile'
