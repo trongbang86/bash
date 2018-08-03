@@ -1,19 +1,19 @@
+#!/bin/bash
+
 BASH_PROFILE_BEFORE=~/custom_bash/.bash_profile_before
 BASH_PROFILE_AFTER=~/custom_bash/.bash_profile_after
 BASH_PROFILE_PLAIN=~/custom_bash/.bash_profile_plain
 PS1_FLAG_USED=0
 echo 'Running .bash_profile'
 
-function call.file() {
+function call_file() {
     [ -f "$1" ] && echo Calling  "$1" && source "$1" && echo Finished  "$1"
 }
-
-call.file $BASH_PROFILE_PLAIN
 
 function abp() {
     PS1_TMP=$PS1
 
-    call.file $BASH_PROFILE_BEFORE
+    call_file $BASH_PROFILE_BEFORE
 
     [ "$T2F" == "" ] && echo 'You have not set up $T2F'
 
@@ -30,11 +30,7 @@ function abp() {
     [ "$PS1MEDIUM" == "" ] && echo 'You have not set up $PS1MEDIUM'
     [ "$PS1SHORT" == "" ] && echo 'You have not set up $PS1SHORT'
 
-    set_ssh_agent_socket #ssh-find-agent.sh
-
-    [ "$(which gradle)" != "" ] && echo Calling ~/bash/gradle.sh && source ~/bash/gradle.sh
-
-    call.file $BASH_PROFILE_AFTER
+    call_file $BASH_PROFILE_AFTER
 
     [ "$PS1_FLAG_USED" == "1" ] && export PS1=$PS1_TMP
 
@@ -42,5 +38,7 @@ function abp() {
     PS1_FLAG_USED=1
 
 }
+
+call_file $BASH_PROFILE_PLAIN
 
 echo 'Finished .bash_profile'
