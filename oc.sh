@@ -1,3 +1,8 @@
+function oc.whoami() {
+    echo OS_USERNAME: $OS_USERNAME
+    echo OS_SERVER: $OS_SERVER
+}
+
 function oc.login() {
     if [ -z "$OS_USERNAME" ]; then
         echo Please set environment variable OS_USERNAME
