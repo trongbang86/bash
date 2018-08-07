@@ -19,6 +19,14 @@ alias 'gc=git commit -m'
 alias 'gsl=git stash list'
 alias 'git.conflicts=git diff --name-only --diff-filter=U | less'
 
+function gb.grep.all() {
+    gb --all | grep -i $1 | less
+}
+
+function gb.grep() {
+    gb | grep -i $1 | less
+}
+
 # git push with checking for master branch
 function gp() {
     # checking if it's on master branch
