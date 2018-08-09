@@ -77,6 +77,8 @@ function gb.delete.force() {
     gb.delete 'force'
 }
 
+alias git.commit.rollback='git reset --soft HEAD~1'
+
 # This shows diff for one particular commit
 git.commit.show() {
     git.from.commit.to.commit $1 $1
