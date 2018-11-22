@@ -50,7 +50,7 @@ function unzip._command() {
     eval "$unzipCommand $fileName"
     rm $fileName
     # 5)
-    echo 'Openning zipped folder'
+    echo Openning zipped folder: $folder
     open .
     # 6)
     cd $CURR
