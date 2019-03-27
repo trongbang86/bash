@@ -19,11 +19,6 @@ alias 'find.no.git=find . ! \( -path "*/.git*" -prune \)'
 alias 'find.smart=find . ! \( -path "*/.git*" -prune \) -and ! \( -path "*/node_modules*" -prune \) -and ! \( -path "*/bower_components*" -prune \) -and ! \( -path "*/.idea*" \) -and ! \( -path "*/build/*" \)'
 alias 'hist=history | less'
 
-
-# Change ctrl-k with ctrl-r
-# shortcut to remove all characters to the end
-bind '"\C-m":"\C-k"'
-
 # This adds more line breaks
 function awk.more.lines() {
     awk '{printf("%s\n\n\n\n",$0)}'
