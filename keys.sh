@@ -22,7 +22,7 @@ alias 'hist=history | less'
 
 # Change ctrl-k with ctrl-r
 # shortcut to remove all characters to the end
-bind '"\C-r":"\C-k"'
+bind '"\C-m":"\C-k"'
 
 # This adds more line breaks
 function awk.more.lines() {
