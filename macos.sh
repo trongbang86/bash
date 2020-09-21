@@ -8,6 +8,7 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 alias 'pwd.copy=pwd | pbcopy'
 alias 'pbl=pbpaste | less'
 alias 'vim.pb=pbpaste | vim -'
+alias 'ifconfig.addresses=ifconfig |grep inet'
 
 function gp.force() {
     file='/tmp/gp.tmp'

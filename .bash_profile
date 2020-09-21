@@ -42,3 +42,7 @@ function abp() {
 call_file $BASH_PROFILE_PLAIN
 
 echo 'Finished .bash_profile'
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/bang/.sdkman"
+[[ -s "/Users/bang/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/bang/.sdkman/bin/sdkman-init.sh"

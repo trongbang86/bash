@@ -19,6 +19,11 @@ alias 'find.no.git=find . ! \( -path "*/.git*" -prune \)'
 alias 'find.smart=find . ! \( -path "*/.git*" -prune \) -and ! \( -path "*/node_modules*" -prune \) -and ! \( -path "*/bower_components*" -prune \) -and ! \( -path "*/.idea*" \) -and ! \( -path "*/build/*" \)'
 alias 'hist=history | less'
 
+# This searches and replaces content in the current folder
+function grep.replace() {
+  grep -RIl "$1" . | xargs sed -i "s/$1/$2/g"
+}
+
 # This adds more line breaks
 function awk.more.lines() {
     awk '{printf("%s\n\n\n\n",$0)}'
