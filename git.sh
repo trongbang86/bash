@@ -18,6 +18,7 @@ function ga() {
 alias 'gc=git commit -m'
 alias 'gsl=git stash list'
 alias 'git.conflicts=git diff --name-only --diff-filter=U | less'
+alias 'git.search.deleted.file=git rev-list -n 1 HEAD --'
 
 function gb.grep.all() {
     gb --all | grep -i $1 | less

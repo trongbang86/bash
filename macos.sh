@@ -1,5 +1,5 @@
-export PS1LONG="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\W\[\033[36m\][\$(date +%H:%M:%S)]\[\033[m\] \$ "
-export PS1MEDIUM="\[\033[33;1m\]\W\[\033[36m\][\$(date +%H:%M:%S)]\[\033[m\] \$ "
+export PS1LONG="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\W\[\033[36m\][\$(date +%H:%M:%S)]\[\033[m\] \n\$ "
+export PS1MEDIUM="\[\033[33;1m\]\W\[\033[36m\][\$(date +%H:%M:%S)]\[\033[m\] \n\$ "
 export PS1SHORT="\[\033[33;1m\]\W\[\033[m\] \$ "
 export PS1="$PS1MEDIUM"
 export CLICOLOR=1
@@ -46,6 +46,7 @@ function git.checkout.HEAD.from.clipboard {
 function git.add.from.clipboard {
     pbpaste | \
         sed 's/^[ ]*//g' | \
+        sed 's/both modified://g' | \
         sed 's/modified://g' | \
         sed 's/deleted://g' | \
         while read file; \
