@@ -7,7 +7,7 @@ PS1_FLAG_USED=0
 echo 'Running .bash_profile'
 
 function call_file() {
-    [ -f "$1" ] && echo Calling  "$1" && source "$1" && echo Finished  "$1"
+    [ -f "$1" ] && source "$1"
 }
 
 function abp() {
@@ -22,7 +22,6 @@ function abp() {
     source ~/bash/ssh.sh
     source ~/bash/git.sh
     source ~/bash/sftp.sh
-    source ~/bash/macos.sh
     source ~/bash/java.sh
     source ~/bash/zip.sh
 
