@@ -25,11 +25,11 @@ function abp() {
     source ~/bash/java.sh
     source ~/bash/zip.sh
 
+    call_file $BASH_PROFILE_AFTER
+
     [ "$PS1LONG" == "" ] && echo 'You have not set up $PS1LONG'
     [ "$PS1MEDIUM" == "" ] && echo 'You have not set up $PS1MEDIUM'
     [ "$PS1SHORT" == "" ] && echo 'You have not set up $PS1SHORT'
-
-    call_file $BASH_PROFILE_AFTER
 
     [ "$PS1_FLAG_USED" == "1" ] && export PS1=$PS1_TMP
 
