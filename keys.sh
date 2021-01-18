@@ -29,23 +29,6 @@ function awk.more.lines() {
     awk '{printf("%s\n\n\n\n",$0)}'
 }
 
-# This copies the last command from history
-function lc() {
-    last_command=$(history | \
-        tail -r | \
-        cut -d ' ' -f5- | \
-        while read c; do \
-            if [ "$c" != "lc" ]; then \
-                # if it's not lc command
-                # then use it
-                echo $c; \
-            fi \
-        done | \
-        head -1)
-    eval "$last_command"
-    unset last_command
-}
-
 alias ps1.long="export "PS1=\$PS1LONG""
 alias ps1.medium="export "PS1=\$PS1MEDIUM""
 alias ps1.short="export "PS1=\$PS1SHORT""

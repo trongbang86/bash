@@ -138,6 +138,23 @@ function h.e() {
 
 }
 
+# This copies the last command from history
+function lc() {
+    last_command=$(history | \
+        tail | tac | \
+        cut -d ' ' -f5- | \
+        while read c; do \
+            if [ "$c" != "lc" ]; then \
+                # if it's not lc command
+                # then use it
+                echo $c; \
+            fi \
+        done | \
+        head -1)
+    eval "$last_command"
+    unset last_command
+}
+
 # This helps edit the last command from history
 function ec() {
     total=1
@@ -146,7 +163,7 @@ function ec() {
         total=$1
     fi
     last_command=$(history | \
-        tail -r | \
+        tail | tac | \
         cut -d ' ' -f5- | \
         while read c; do \
             if [ "$c" != "lc" ] && [ "$c" != "ec" ] && [ "$c" != "hist" ]; then \
