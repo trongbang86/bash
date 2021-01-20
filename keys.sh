@@ -107,3 +107,10 @@ function scripts.source() {
 function scripts.run() {
     . $(scripts.name)
 }
+
+# This replaces a string with another string
+# in the current folder
+function grep.replace () 
+{ 
+  grep -RIl "$1" . | xargs sed -i "s/$1/$2/g"
+}

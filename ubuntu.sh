@@ -5,6 +5,7 @@ export PS1="$PS1MEDIUM"
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
+alias copy='xclip -sel clip'
 alias 'pwd.copy=pwd | copy'
 alias 'xpaste=xclip -out -selection clipboard'
 alias 'pbl=xclip -out -selection clipboard | less'
