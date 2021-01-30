@@ -5,7 +5,7 @@ export PS1="$PS1MEDIUM"
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
-alias copy='xclip -sel clip'
+alias copy='xargs echo -n | xclip -sel clip'
 alias 'pwd.copy=pwd | copy'
 alias 'xpaste=xclip -out -selection clipboard'
 alias 'pbl=xclip -out -selection clipboard | less'
@@ -208,4 +208,30 @@ function ec.search() {
     unset file
     unset query
     unset commands
+}
+
+# This is to show diff for the git commits that
+# satisfy the search requirements
+# usage: git.search 'a message' 'author'
+function git.search() {
+    if [ "$1" == "" ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+        echo "Usage: git.search 'a message' 'author'"
+        return
+    fi
+    search="$1"
+    author="$2"
+    # clear git.diff file
+    # filter git commits with the search term
+    # sed to filter the commit numbers
+    # for each commmit number, concat the 'git show' to git.diff 
+    # less to view the result
+    echo '' > /tmp/git.diff | \
+        git log -i --grep="$search" --author="$author" | \
+        sed -n 's/^commit \([^}]*\)/\1/p' | \
+        tail | tac | \
+        while read x; do git show $x --color=always >> /tmp/git.diff; done && \
+            less -R /tmp/git.diff
+    unset search
+    unset author
+
 }
