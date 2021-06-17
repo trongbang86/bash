@@ -7,7 +7,7 @@ PS1_FLAG_USED=0
 echo 'Running .bash_profile'
 
 function call_file() {
-    [ -f "$1" ] && echo Calling  "$1" && source "$1" && echo Finished  "$1"
+    [ -f "$1" ] && source "$1"
 }
 
 function abp() {
@@ -22,15 +22,14 @@ function abp() {
     source ~/bash/ssh.sh
     source ~/bash/git.sh
     source ~/bash/sftp.sh
-    source ~/bash/macos.sh
     source ~/bash/java.sh
     source ~/bash/zip.sh
+
+    call_file $BASH_PROFILE_AFTER
 
     [ "$PS1LONG" == "" ] && echo 'You have not set up $PS1LONG'
     [ "$PS1MEDIUM" == "" ] && echo 'You have not set up $PS1MEDIUM'
     [ "$PS1SHORT" == "" ] && echo 'You have not set up $PS1SHORT'
-
-    call_file $BASH_PROFILE_AFTER
 
     [ "$PS1_FLAG_USED" == "1" ] && export PS1=$PS1_TMP
 
@@ -46,3 +45,5 @@ echo 'Finished .bash_profile'
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/bang/.sdkman"
 [[ -s "/Users/bang/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/bang/.sdkman/bin/sdkman-init.sh"
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

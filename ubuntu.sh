@@ -5,9 +5,11 @@ export PS1="$PS1MEDIUM"
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
-alias 'pwd.copy=pwd | pbcopy'
-alias 'pbl=pbpaste | less'
-alias 'vim.pb=pbpaste | vim -'
+alias copy='xargs echo -n | xclip -sel clip'
+alias 'pwd.copy=pwd | copy'
+alias 'xpaste=xclip -out -selection clipboard'
+alias 'pbl=xclip -out -selection clipboard | less'
+alias 'vim.pb=xclip -out -selection clipboard | vim -'
 alias 'ifconfig.addresses=ifconfig |grep inet'
 
 function gp.force() {
@@ -27,7 +29,7 @@ function gp.force() {
 # This helps clean the changes for files from clipboard
 # by doing git checkout HEAD for those files
 function git.checkout.HEAD.from.clipboard {
-    pbpaste | \
+    xclip -out -selection clipboard | \
         sed 's/^[ ]*//g' | \
         sed 's/modified://g' | \
         sed 's/deleted://g' | \
@@ -44,7 +46,7 @@ function git.checkout.HEAD.from.clipboard {
 # This adds all the files provided in clipboard
 # These files starts with empty space
 function git.add.from.clipboard {
-    pbpaste | \
+    xclip -out -selection clipboard | \
         sed 's/^[ ]*//g' | \
         sed 's/both modified://g' | \
         sed 's/modified://g' | \
@@ -67,7 +69,7 @@ function git.add.from.clipboard.with.edit() {
 # This helps add files in clipboard copied from
 # git status
 function git.add.from.status.with.edit() {
-    git status | pbcopy
+    git status | copy
     pbedit
     git.add.from.clipboard
 }
@@ -75,14 +77,14 @@ function git.add.from.status.with.edit() {
 # This helps clean the changes for files in 
 # git status list
 function git.checkout.HEAD.from.status() {
-    git status | pbcopy
+    git status | copy
     pbedit
     git.checkout.HEAD.from.clipboard
 }
 
 function git.commit.show.last() {
     last_commit=$(git log | head -1 | awk '{print $2}')
-    echo $last_commit | pbcopy
+    echo $last_commit | copy
     git show "$last_commit"
     unset last_commit
 }
@@ -97,9 +99,9 @@ function git.add.from.clipboard.with.edit() {
 # This helps edit the clipboard
 function pbedit() {
     file=/tmp/pbedit.tmp
-    pbpaste > $file
+    xclip -out -selection clipboard > $file
     vim $file
-    cat $file | pbcopy
+    cat $file | copy
     unset file
 }
 
@@ -112,7 +114,7 @@ function h.c() {
         history_num=$1
     fi
     command=`history | grep "^[ ]*$history_num" | cut -d ' ' -f5-`
-    echo $command | pbcopy
+    echo $command | copy
     echo $command
     unset command
     unset history_num
@@ -130,11 +132,28 @@ function h.e() {
     file=/tmp/ec.tmp
     echo $command > $file
     vim $file
-    cat $file | pbcopy
+    cat $file | copy
     rm $file
     unset file
     unset command
 
+}
+
+# This copies the last command from history
+function lc() {
+    last_command=$(history | \
+        tail | tac | \
+        cut -d ' ' -f5- | \
+        while read c; do \
+            if [ "$c" != "lc" ]; then \
+                # if it's not lc command
+                # then use it
+                echo $c; \
+            fi \
+        done | \
+        head -1)
+    eval "$last_command"
+    unset last_command
 }
 
 # This helps edit the last command from history
@@ -145,7 +164,7 @@ function ec() {
         total=$1
     fi
     last_command=$(history | \
-        tail -r | \
+        tail | tac | \
         cut -d ' ' -f5- | \
         while read c; do \
             if [ "$c" != "lc" ] && [ "$c" != "ec" ] && [ "$c" != "hist" ]; then \
@@ -157,7 +176,7 @@ function ec() {
         head -$total)
     echo "$last_command" > $file
     vim $file
-    cat $file | pbcopy
+    cat $file | copy
     rm $file
     unset file
     unset total
@@ -184,7 +203,7 @@ function ec.search() {
         done)
     echo "$commands" > $file
     vim $file
-    cat $file | pbcopy
+    cat $file | copy
     rm $file
     unset file
     unset query
@@ -209,7 +228,7 @@ function git.search() {
     echo '' > /tmp/git.diff | \
         git log -i --grep="$search" --author="$author" | \
         sed -n 's/^commit \([^}]*\)/\1/p' | \
-        tail -r | \
+        tail | tac | \
         while read x; do git show $x --color=always >> /tmp/git.diff; done && \
             less -R /tmp/git.diff
     unset search

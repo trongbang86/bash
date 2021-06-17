@@ -16,6 +16,7 @@ alias 'vteamocil=vim ~/.teamocil'
 alias 'v.=vim .'
 alias 'vbash=vim ~/bash'
 alias 'vcbash= vim ~/custom_bash'
+alias tm.abp='source ~/bash/tmux.sh'
 alias 'find.no.git=find . ! \( -path "*/.git*" -prune \)'
 alias 'find.smart=find . ! \( -path "*/.git*" -prune \) -and ! \( -path "*/node_modules*" -prune \) -and ! \( -path "*/bower_components*" -prune \) -and ! \( -path "*/.idea*" \) -and ! \( -path "*/build/*" \)'
 alias 'hist=history | less'
@@ -28,23 +29,6 @@ function grep.replace() {
 # This adds more line breaks
 function awk.more.lines() {
     awk '{printf("%s\n\n\n\n",$0)}'
-}
-
-# This copies the last command from history
-function lc() {
-    last_command=$(history | \
-        tail -r | \
-        cut -d ' ' -f5- | \
-        while read c; do \
-            if [ "$c" != "lc" ]; then \
-                # if it's not lc command
-                # then use it
-                echo $c; \
-            fi \
-        done | \
-        head -1)
-    eval "$last_command"
-    unset last_command
 }
 
 alias ps1.long="export "PS1=\$PS1LONG""
@@ -124,4 +108,11 @@ function scripts.source() {
 # Run the on-the-fly script
 function scripts.run() {
     . $(scripts.name)
+}
+
+# This replaces a string with another string
+# in the current folder
+function grep.replace () 
+{ 
+  grep -RIl "$1" . | xargs sed -i "s/$1/$2/g"
 }
