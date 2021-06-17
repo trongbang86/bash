@@ -8,6 +8,7 @@ alias 'll=CLICOLOR_FORCE=1 ls -at'
 alias 'll.10=ll | head -10'
 alias 'll.grep=ll | grep -i'
 alias 'lll=ll | less -R'
+alias 'files.biggest=du -a . | sort -n -r | head -n 10'
 alias 'vbp=vim ~/.bash_profile'
 alias "vbpa=vim $BASH_PROFILE_AFTER"
 alias "vbpb=vim $BASH_PROFILE_BEFORE"
