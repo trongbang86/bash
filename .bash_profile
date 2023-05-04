@@ -15,7 +15,7 @@ function abp() {
 
     call_file $BASH_PROFILE_BEFORE
 
-    [ "$T2F" == "" ] && echo 'You have not set up $T2F'
+    [ -z "$T2F" ] && echo 'You have not set up $T2F'
 
     source ~/bash/debug.sh
     source ~/bash/keys.sh
@@ -32,6 +32,14 @@ function abp() {
     [ "$PS1SHORT" == "" ] && echo 'You have not set up $PS1SHORT'
 
     [ "$PS1_FLAG_USED" == "1" ] && export PS1=$PS1_TMP
+    
+    [ -z "$PS1LONG" ] && PS1LONG="$PS1_TEMP"
+    [ -z "$PS1MEDIUM" ] && PS1MEDIUM=$PS1_TEMP
+    [ -z "$PS1SHORT" ] && PS1SHORT=$PS1_TEMP
+
+    [[ "$PS1_FLAG_USED" == "1" ]] && export PS1=$PS1_TMP
+    PS1=$PS1_TEMP
+
 
     unset PS1_TMP
     PS1_FLAG_USED=1
