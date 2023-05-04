@@ -1,0 +1,49 @@
+
+function backup() {
+  TMP_BACKUP="/Users/bang/backup"
+  cp -fr "/Users/bang/bash"  "$TMP_BACKUP/"
+  cp -fr "/Users/bang/custom_bash"  "$TMP_BACKUP/"
+  cp -fr "/Users/bang/.vim"  "$TMP_BACKUP/vim"
+  cp -fr "/Users/bang/.viminfo"  "$TMP_BACKUP/vim"
+  cp -fr "/Users/bang/.ideavimrc"  "$TMP_BACKUP/vim"
+  cp -fr "/Users/bang/.gvimrc"  "$TMP_BACKUP/vim"
+  cp -fr "/Users/bang/.vimrc"  "$TMP_BACKUP/vim"
+  cp -fr "/Users/bang/Documents/workspace/tools"  "$TMP_BACKUP/"
+  cp -fr "/Users/bang/Documents/workspace/tools"  "$TMP_BACKUP/"
+  
+}
+
+function nvm.setup() {
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+}
+
+function python2.7.setup() {
+  export PATH="/Users/bang/Library/Python/2.7/bin:$PATH"
+}
+
+function pyenv.setup() {
+  export PYENV_ROOT="$HOME/.pyenv"
+  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+
+}
+
+function port.setup() {
+  export PATH="$PATH:/opt/local/bin/"
+}
+
+port.setup
+nvm.setup
+python2.7.setup
+pyenv.setup
+call_file ~/custom_bash/keys.sh
+call_file ~/custom_bash/git.sh
+call_file ~/custom_bash/sdk.sh
+call_file ~/custom_bash/python.sh
+call_file ~/custom_bash/docker.sh
+call_file ~/custom_bash/ssh.sh
+call_file ~/custom_bash/eh.sh
+call_file ~/custom_bash/aws.sh
+call_file ~/custom_bash/putty.sh
