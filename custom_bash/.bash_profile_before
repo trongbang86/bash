@@ -1,0 +1,4 @@
+WORKSPACE=/Users/bang/Documents/workspace
+DOCS=$WORKSPACE/docs
+T2F=$WORKSPACE/tmp
+TMP=$WORKSPACE/tmp
