@@ -4,8 +4,7 @@ if [ -f ~/.git-completion.bash ]; then
 fi
 
 function gp.force() {
-  TMP_command=`gp 2>&1 | tail -3`
-  TMP_command=`echo $TMP_command | sed -e 's/^[[:space:]]*//'`
+  TMP_command=`gp 2>&1 | tail -5 | sed -e 's/^[[:space:]]*//' | head -1`
   eval $TMP_command
   unset TMP_command
 }
