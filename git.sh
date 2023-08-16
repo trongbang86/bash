@@ -16,6 +16,7 @@ function ga() {
 }
 
 alias 'gc=git commit -m'
+alias 'gc.empty=git commit --allow-empty -m "Empty commit to trigger build"'
 alias 'gsl=git stash list'
 alias 'git.conflicts=git diff --name-only --diff-filter=U | less'
 alias 'git.search.deleted.file=git rev-list -n 1 HEAD --'
