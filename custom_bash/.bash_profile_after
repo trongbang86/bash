@@ -47,3 +47,4 @@ call_file ~/custom_bash/ssh.sh
 call_file ~/custom_bash/eh.sh
 call_file ~/custom_bash/aws.sh
 call_file ~/custom_bash/putty.sh
+call_file ~/custom_bash/node.sh
