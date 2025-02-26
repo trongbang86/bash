@@ -41,6 +41,25 @@ function aws.login() {
   echo "Success. You are logged in with profile $profile_name."
 }
 
+function aws.eks.update.kubeconfig {
+  local clusters cluster_name
+
+  # List EKS clusters
+  clusters=$(aws eks list-clusters --query "clusters" --output text)
+
+  # Prompt the user to select a cluster
+  echo "Select an EKS cluster to update kubeconfig:"
+  select cluster_name in $clusters; do
+    if [ -n "$cluster_name" ]; then
+      aws eks update-kubeconfig --name "$cluster_name"
+      echo "Kubeconfig updated for cluster $cluster_name"
+      break
+    else
+      echo "Invalid selection. Please try again."
+    fi
+  done
+}
+
 #account_id,aws_profile,role,aws_test_function,desc
 AWS_PROFILES=(
 '123' 'admin_user_role_assume_all-123' 'AdminUserRole' 'aws_test_s3' 'desc')
