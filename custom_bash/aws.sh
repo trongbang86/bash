@@ -1,3 +1,46 @@
+function aws.login() {
+  local profiles profile_name aws_creds
+
+  # Print lines starting with "[profile " or "//", ignoring leading spaces
+  echo "FILTERED ~/.AWS/CONFIG CONTENT:"
+  grep -E '^\s*\[profile |^[ ]*//' ~/.aws/config
+
+  echo "------------------"
+  echo ""
+  # Add an additional option to open the URL
+  profiles=$(sed -n 's/^\[profile \(.*\)\]/\1/p' ~/.aws/config)
+  profiles="$profiles open_console"
+
+  # Prompt the user to select a profile
+  echo "SELECT AN AWS PROFILE:"
+  select profile_name in $profiles; do
+    if [ "$profile_name" == "open_console" ]; then
+      open "https://cba-cns.awsapps.com/start"
+      return
+    elif [ -n "$profile_name" ]; then
+      break
+    else
+      echo "Invalid selection. Please try again."
+    fi
+  done
+
+  proxy.unset
+
+  export AWS_PROFILE=$profile_name
+
+  # Check if user is already logged in
+  aws_creds=$(aws configure export-credentials)
+  if [[ $? -ne 0 ]]; then
+      # Use the selected profile name to log in
+      aws sso login --profile $profile_name
+  fi
+
+  # Verify your identity
+  aws sts get-caller-identity
+
+  echo "Success. You are logged in with profile $profile_name."
+}
+
 #account_id,aws_profile,role,aws_test_function,desc
 AWS_PROFILES=(
 '123' 'admin_user_role_assume_all-123' 'AdminUserRole' 'aws_test_s3' 'desc')
