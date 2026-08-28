@@ -1,5 +1,25 @@
 export IGNOREEOF=4   # Shell only exits after the 4th consecutive Ctrl-d
 
+# Portable coloured prompts. Override BASH_PS1_STYLE before running abp to use
+# short, medium, or long as the initial style.
+PS1LONG="${PS1LONG:-\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\W\[\033[36m\][\$(date +%H:%M:%S)]\[\033[m\] \n\$ }"
+PS1MEDIUM="${PS1MEDIUM:-\[\033[33;1m\]\W\[\033[36m\][\$(date +%H:%M:%S)]\[\033[m\] \n\$ }"
+PS1SHORT="${PS1SHORT:-\[\033[33;1m\]\W\[\033[m\] \$ }"
+export PS1LONG PS1MEDIUM PS1SHORT
+
+ps1.long() { PS1=$PS1LONG; export PS1; }
+ps1.medium() { PS1=$PS1MEDIUM; export PS1; }
+ps1.short() { PS1=$PS1SHORT; export PS1; }
+
+if [[ $- == *i* ]]; then
+    case "${BASH_PS1_STYLE:-short}" in
+        long) ps1.long ;;
+        medium) ps1.medium ;;
+        short) ps1.short ;;
+        *) printf 'Unknown BASH_PS1_STYLE: %s (using short)\n' "$BASH_PS1_STYLE" >&2; ps1.short ;;
+    esac
+fi
+
 alias 'cd.=cd ~'
 alias 'cd.bash=cd ~/bash'
 alias 'cd.custom.bash=cd ~/custom_bash/'
@@ -31,10 +51,6 @@ function grep.replace() {
 function awk.more.lines() {
     awk '{printf("%s\n\n\n\n",$0)}'
 }
-
-alias ps1.long="export "PS1=\$PS1LONG""
-alias ps1.medium="export "PS1=\$PS1MEDIUM""
-alias ps1.short="export "PS1=\$PS1SHORT""
 
 function ps1 {
     if [ "$PS1" == "$PS1LONG" ]; then
