@@ -1,5 +1,6 @@
-WORKSPACE=/Users/bang/Documents/workspace
-DOCS=$WORKSPACE/docs
-T2F=$WORKSPACE/tmp
-TMP=$WORKSPACE/tmp
-CBASH=$HOME/custom_bash
+WORKSPACE="${WORKSPACE:-$HOME/Dev}"
+DEVSPACE="${DEVSPACE:-$WORKSPACE}"
+DOCS="${DOCS:-$DEVSPACE/docs}"
+T2F="${T2F:-$DEVSPACE/tmp}"
+TMP="${TMP:-$DEVSPACE/tmp}"
+CBASH="${CBASH:-$HOME/custom_bash}"

@@ -1,16 +1,12 @@
-# 1. Initialising .bash_profile
-if [ -f ~/.bash_profile ]; then
-    echo '~/.bash_profile exists so not copying over'
-else
-    ln -s ~/bash/.bash_profile ~/.bash_profile
-    echo 'ln -s ~/bash/.bash_profile ~/.bash_profile'
-fi
-
-# 2. Initialising tmux
-# 2.1 Copying .tmux.conf
-if [ -f ~/.tmux.conf ]; then
-    echo '~/.tmux.conf exists so not copying over'
-else
-    ln -s ~/bash/.tmux.conf ~/.tmux.conf
-    echo 'ln -s ~/bash/.tmux.conf ~/.tmux.conf'
-fi
+#!/usr/bin/env bash
+set -u
+BASH_DIR="${BASH_DIR:-$HOME/bash}"
+link_file() {
+    local src="$1" dst="$2"
+    if [ -e "$dst" ] || [ -L "$dst" ]; then echo "EXISTS  $dst — skipping"
+    else ln -s "$src" "$dst" && echo "LINKED  $dst -> $src"; fi
+}
+echo '=== Setting up symlinks ==='
+link_file "$BASH_DIR/.bash_profile" "$HOME/.bash_profile"
+link_file "$BASH_DIR/.tmux.conf" "$HOME/.tmux.conf"
+echo 'Open a new terminal (or source ~/.bash_profile), then run: abp'

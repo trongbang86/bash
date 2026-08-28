@@ -105,7 +105,7 @@ git.from.commit() {
         git log | \
         sed -n 's/^commit \([^}]*\)/\1/p' | \
         awk "BEGIN{a=0}{if(a==0){print}; if(/^$commit/){a=1}}" | \
-        tail -r | \
+        breverse | \
         while read x; do git show $x --color=always >> /tmp/git.diff; done && \
             less -R /tmp/git.diff
     unset commit
@@ -138,7 +138,7 @@ git.from.commit.to.commit() {
         git log | \
         sed -n 's/^commit \([^}]*\)/\1/p' | \
         awk "BEGIN{a=0}{if(/^$commit2/){a=1} if(a==1){print} if(/^$commit1/){a=0}}" | \
-        tail -r | \
+        breverse | \
         while read x; do git show $x --color=always >> /tmp/git.diff; done && \
             less -R /tmp/git.diff
     unset commit1

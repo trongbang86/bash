@@ -1,77 +1,32 @@
-# this unzips a tar file and opens the extracted folder for checking
-# 1) read the file name
-# 2) check if it exists
-# 3) check if $TMP exists
-# 4) unzip
-# 5) open folder
-# 6) go back to the previous folder
-function unzip._command() {
-    unzipCommand=$1
-    if [ -z "$unzipCommand" ]; then
-        echo Please enter unzipCommand
-        return 1
+unzip._command() {
+    local archive_type="$1" file="$2" current folder
+    [ -n "$archive_type" ] || { echo 'Archive type is required.' >&2; return 2; }
+    [ -n "$file" ] || read -rp 'Enter an archive: ' file
+    [ -f "$file" ] || { echo "File does not exist: $file" >&2; return 1; }
+    [ -n "${TMP:-}" ] && [ "$TMP" != / ] && [ "$TMP" != "$HOME" ] ||
+        { echo 'Set $TMP to a safe temporary directory.' >&2; return 1; }
+    current=$PWD
+    folder="$TMP/unzip"
+    mkdir -p "$TMP" || return
+    if [ -e "$folder" ]; then
+        folder=$(mktemp -d "$TMP/unzip.XXXXXX") || return
+    else
+        mkdir "$folder" || return
     fi
-
-    if [ -f "$unzipCommand" ]; then
-        echo Usage: unzip.command 'tar -xzf' 'file.tar.gz'
-        return 1
-    fi
-    # 1)
-    echo 'Reading file name'
-    file=$2
-    CURR=`pwd`
-    if [ -z "$file" ]; then
-        read -p "Enter a file :" file
-    fi
-    # 2)
-    echo 'Checking file existence'
-    if [ ! -f "$file" ]; then
-        echo File $file does not exist
-        return 1
-    fi
-    # 3)
-    echo 'Checking if $TMP exists'
-    if [ -z "$TMP" ]; then
-        echo 'Please set $TMP'
-        return 1
-    fi
-    # 4)
-    echo 'unzipping'
-    fileName=$(basename "$file")
-    folder=$TMP/unzip
-    if [ -f "$folder" ]; then
-        echo "$folder should be a folder"
-        return 1
-    fi
-    rm -rf $folder
-    mkdir $folder
-    cp $file $folder
-    cd $folder
-    eval "$unzipCommand $fileName"
-    rm $fileName
-    # 5)
-    echo Openning zipped folder: $folder
-    open .
-    # 6)
-    cd $CURR
-    unset fileName
-    unset folder
-    unset CURR
-    unset file
-    unset unzipCommand
+    cp -- "$file" "$folder/" || return
+    cd "$folder" || return
+    file=$(basename "$file")
+    case "$archive_type" in
+        tar) tar -xzf "$file" ;;
+        zip) unzip -q "$file" ;;
+        jar) jar -xf "$file" ;;
+        *) echo "Unsupported archive type: $archive_type" >&2; cd "$current"; return 2 ;;
+    esac
+    local status=$?
+    [ "$status" -eq 0 ] && rm -f -- "$file" && bopen .
+    cd "$current" || return
+    return "$status"
 }
-
-# this unzips a tar file
-function unzip.tar() {
-    unzip._command 'tar -xzf' $1
-}
-
-# this unzips a zipped file
-function unzip.zip() {
-    unzip._command 'unzip -q' $1
-}
-
-# this unzips a jar file
-function unzip.jar() {
-    unzip._command 'jar -xf' $1
-}
+unzip.tar() { unzip._command tar "$1"; }
+unzip.zip() { unzip._command zip "$1"; }
+unzip.jar() { unzip._command jar "$1"; }

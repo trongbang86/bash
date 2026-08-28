@@ -1,4 +1,4 @@
-export IGNOREEOF=4   # Shell only exists after the 4th consecutive Ctrl-d
+export IGNOREEOF=4   # Shell only exits after the 4th consecutive Ctrl-d
 
 alias 'cd.=cd ~'
 alias 'cd.bash=cd ~/bash'
@@ -16,14 +16,15 @@ alias 'vteamocil=vim ~/.teamocil'
 alias 'v.=vim .'
 alias 'vbash=vim ~/bash'
 alias 'vcbash= vim ~/custom_bash'
-alias tm.abp='source ~/bash/tmux.sh'
+tm.abp() { . "${BASH_DIR:-$HOME/bash}/tmux.sh"; }
 alias 'find.no.git=find . ! \( -path "*/.git*" -prune \)'
 alias 'find.smart=find . ! \( -path "*/.git*" -prune \) -and ! \( -path "*/node_modules*" -prune \) -and ! \( -path "*/bower_components*" -prune \) -and ! \( -path "*/.idea*" \) -and ! \( -path "*/build/*" \)'
 alias 'hist=history | less'
 
 # This searches and replaces content in the current folder
 function grep.replace() {
-  grep -RIl "$1" . | xargs sed -i "s/$1/$2/g"
+  local file
+  while IFS= read -r file; do bsed_in_place "s/$1/$2/g" "$file"; done < <(grep -RIl "$1" .)
 }
 
 # This adds more line breaks
@@ -114,5 +115,28 @@ function scripts.run() {
 # in the current folder
 function grep.replace () 
 { 
-  grep -RIl "$1" . | xargs sed -i "s/$1/$2/g"
+  local file
+  while IFS= read -r file; do bsed_in_place "s/$1/$2/g" "$file"; done < <(grep -RIl "$1" .)
+}
+
+# Cross-platform clipboard helpers. platform.sh supplies bcopy/bpaste.
+pwd.copy() { pwd | bcopy; }
+pbl() { bpaste | less; }
+vim.pb() { bpaste | vim -; }
+pbedit() {
+    local file="${TMPDIR:-/tmp}/pbedit.$$"
+    bpaste > "$file" || return
+    vim "$file"
+    bcopy < "$file"
+    rm -f "$file"
+}
+git.add.from.clipboard() {
+    bpaste | sed -e 's/^[[:space:]]*//' -e 's/^both modified://' -e 's/^modified://' -e 's/^deleted://' |
+        while IFS= read -r file; do [ -n "$file" ] && git add -- "$file"; done
+    git status
+}
+git.checkout.HEAD.from.clipboard() {
+    bpaste | sed -e 's/^[[:space:]]*//' -e 's/^modified://' -e 's/^deleted://' |
+        while IFS= read -r file; do [ -n "$file" ] && git checkout HEAD -- "$file"; done
+    git status
 }
