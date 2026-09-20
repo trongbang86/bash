@@ -1,0 +1,10 @@
+# $CUSTOM_BASH_DIR/.bash_profile_plain is sourced once at shell startup
+# (before abp is called). Use it for env vars or bootstrapping that must
+# be available immediately, without running abp first.
+#
+# Most things belong in .bash_profile_before (env vars for abp) or
+# .bash_profile_after (tool loading after abp). Only put things here
+# that are genuinely needed at login time before abp.
+#
+# Example — uncomment to activate rvm:
+# source "$HOME/.rvm/scripts/rvm"
